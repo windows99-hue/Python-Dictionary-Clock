@@ -3,8 +3,6 @@ from colorama import init, Fore, Back, Style
 import time
 import sys
 
-init()
-
 def yellow_hex(text):
     return f"\033[38;2;255;216;102m{text}\033[0m"
 
@@ -75,4 +73,5 @@ def live_clock():
         print("\n" + yellow_hex("时钟已停止"))
 
 if __name__ == "__main__":
+    init()
     live_clock()
