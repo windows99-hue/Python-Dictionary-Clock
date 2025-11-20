@@ -14,6 +14,10 @@ def purple_hex(text):
 def cyan_italic(text):
     return f"\033[3;38;2;120;220;232m{text}\033[0m"
 
+def get_gmt_offset():
+    offset_hours = int(datetime.now().astimezone().strftime('%z')) // 100
+    return f"GMT{offset_hours:+}"
+
 def get_clock_output():
     n = datetime.now()
     
@@ -33,7 +37,7 @@ def get_clock_output():
 
         "year": purple_hex(str(n.year)),
         
-        "timezone": yellow_hex("\"" + f"GMT{'+' if (offset := int(datetime.now().astimezone().strftime('%z')) // 100) >= 0 else ''}{offset}" + "\"")
+        "timezone": yellow_hex(f'"{get_gmt_offset()}"')
     }
 
     output_lines = []
