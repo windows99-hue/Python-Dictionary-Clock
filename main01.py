@@ -19,13 +19,19 @@ def get_clock_output():
 
     clock: dict = {
         "hour": purple_hex(str(n.hour)),
+
         "minute": purple_hex(str(n.minute)),
+
         "second": purple_hex(str(n.second)),
-        "day": "[" + purple_hex(str(n.day)) + ", " + yellow_hex("\"" + ["Monday", "Tuesday", "Wednesday", 
-                "Thursday", "Friday", "Saturday", "Sunday"][n.weekday()] + "\"") + "]",
+
+        "day": f"[{purple_hex(str(n.day))}, {yellow_hex("\"" + ["Monday", "Tuesday", "Wednesday", 
+                "Thursday", "Friday", "Saturday", "Sunday"][n.weekday()] + "\"")}]",
+
         "month": yellow_hex("\"" + ["January", "February", "March", "April", "May", "June", 
                 "July", "August", "September", "October", "November", "December"][n.month - 1] +"\""),
+
         "year": purple_hex(str(n.year)),
+        
         "timezone": yellow_hex("\"" + f"GMT{'+' if (offset := int(datetime.now().astimezone().strftime('%z')) // 100) >= 0 else ''}{offset}" + "\"")
     }
 
