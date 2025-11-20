@@ -16,6 +16,9 @@ def cyan_italic(text):
 
 def get_clock_output():
     n = datetime.now()
+    
+    weekday = f'\"{n.strftime("%A")}\"'
+    month_name = n.strftime("%B")
 
     clock: dict = {
         "hour": purple_hex(str(n.hour)),
@@ -24,11 +27,9 @@ def get_clock_output():
 
         "second": purple_hex(str(n.second)),
 
-        "day": f"[{purple_hex(str(n.day))}, {yellow_hex("\"" + ["Monday", "Tuesday", "Wednesday", 
-                "Thursday", "Friday", "Saturday", "Sunday"][n.weekday()] + "\"")}]",
+        "day": f'[{purple_hex(n.day)}, {yellow_hex(weekday)}]',
 
-        "month": yellow_hex("\"" + ["January", "February", "March", "April", "May", "June", 
-                "July", "August", "September", "October", "November", "December"][n.month - 1] +"\""),
+        "month": yellow_hex(f'"{month_name}"'),
 
         "year": purple_hex(str(n.year)),
         
