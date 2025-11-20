@@ -1,8 +1,6 @@
 from datetime import datetime
-import pytz
 from colorama import init, Fore, Back, Style
 import time
-import os
 import sys
 
 init()
