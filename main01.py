@@ -3,8 +3,6 @@ from colorama import init, Fore, Back, Style
 import time
 import sys
 
-init()
-
 def yellow_hex(text):
     return f"\033[38;2;255;216;102m{text}\033[0m"
 
@@ -14,8 +12,15 @@ def purple_hex(text):
 def cyan_italic(text):
     return f"\033[3;38;2;120;220;232m{text}\033[0m"
 
+def get_gmt_offset():
+    offset_hours = int(datetime.now().astimezone().strftime('%z')) // 100
+    return f"GMT{offset_hours:+}"
+
 def get_clock_output():
     n = datetime.now()
+    
+    weekday = f'\"{n.strftime("%A")}\"'
+    month_name = n.strftime("%B")
 
     clock: dict = {
         "hour": purple_hex(str(n.hour)),
@@ -24,15 +29,13 @@ def get_clock_output():
 
         "second": purple_hex(str(n.second)),
 
-        "day": f"[{purple_hex(str(n.day))}, {yellow_hex("\"" + ["Monday", "Tuesday", "Wednesday", 
-                "Thursday", "Friday", "Saturday", "Sunday"][n.weekday()] + "\"")}]",
+        "day": f'[{purple_hex(n.day)}, {yellow_hex(weekday)}]',
 
-        "month": yellow_hex("\"" + ["January", "February", "March", "April", "May", "June", 
-                "July", "August", "September", "October", "November", "December"][n.month - 1] +"\""),
+        "month": yellow_hex(f'"{month_name}"'),
 
         "year": purple_hex(str(n.year)),
         
-        "timezone": yellow_hex("\"" + f"GMT{'+' if (offset := int(datetime.now().astimezone().strftime('%z')) // 100) >= 0 else ''}{offset}" + "\"")
+        "timezone": yellow_hex(f'"{get_gmt_offset()}"')
     }
 
     output_lines = []
@@ -70,4 +73,5 @@ def live_clock():
         print("\n" + yellow_hex("时钟已停止"))
 
 if __name__ == "__main__":
+    init()
     live_clock()
